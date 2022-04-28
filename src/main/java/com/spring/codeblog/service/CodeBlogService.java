@@ -25,4 +25,9 @@ public class CodeBlogService {
 	public Post save(Post post) {
 		return repository.save(post);
 	}
+	
+	public void delete(Post post) {
+		repository.delete(post);
+		
+	}
 }
