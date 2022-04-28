@@ -1,13 +1,21 @@
 package com.spring.codeblog.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.codeblog.dto.PostDto;
 import com.spring.codeblog.model.Post;
 import com.spring.codeblog.service.CodeBlogService;
 
@@ -34,5 +42,26 @@ public class CodeBlogController {
 		mv.setViewName("postDetails");
 		mv.addObject("post", post);
 		return mv;
+	}
+	@GetMapping("newpost")
+	public String getNewPostForm(PostDto postDto) {
+		return "newPost";
+	}
+	
+	@PostMapping("newpost")
+	public String savePost(@Valid PostDto postDto,BindingResult result) {
+		if(result.hasErrors()) 
+			return "redirect:/newpost";
+		Post post = new Post();
+		BeanUtils.copyProperties(postDto, post);
+		post.setData(LocalDate.now());
+		service.save(post);
+		return "redirect:/posts";
+		
+	}
+	
+	@ModelAttribute(value = "post")
+	public Post getPostDto() {
+		return new Post();
 	}
 }
