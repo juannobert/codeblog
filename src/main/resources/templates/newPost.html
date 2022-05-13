@@ -11,13 +11,19 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
 </head>
 <body>
+
 	<header>
 		<nav class="navbar navbar-light bg-light" >
 			<span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyCodeBlog</span>
 		</nav>
-
+	</header>
 		<article>
 			<div class="container" style="width: 60%; padding-bottom: 30px;">
 				<nav aria-label="breadcrumb">
@@ -27,6 +33,9 @@
 						<li class="breadcrumb-item active" aria-current="page">New Post</li> 
 					</ol>
 				</nav>
+				<div class="alert alert-danger alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensagem)}">
+    				<span th:text="${mensagem}"></span>
+				</div>
 				 <div>
             		<!--  <th:block th:include="mensagemValidacao"></th:block>-->
             		<form method="post" >
@@ -37,7 +46,7 @@
                     		<input type="text" class="form-control" name="autor" placeholder="Autor *">
                 		</div>
 
-               			<textarea id="summernote" type="text" class="form-control" name="texto" placeholder="Texto *"></textarea>
+               			<textarea id="summernote"  class="form-control" name="texto" placeholder="Texto *"></textarea>
 
                 		<small class="form-text text-muted">(*) Campos obrigatórios</small>
 
@@ -48,6 +57,17 @@
         		</div>
         	</div>
 		</article>
-	</header>
+	<script> $('#summernote').summernote({
+		placeholder: 'Texto *', tabsize: 2, height: 300, 
+		  toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    ['color', ['color']],
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']]
+			  ]
+			}); </script>
 </body>
 </html>

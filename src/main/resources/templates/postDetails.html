@@ -40,7 +40,7 @@
                				<span th:text="${post.data}"></span>
                 		</p>
                			<h1 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.titulo}"></span></h1>
-                		 <p class="card-text"><span th:text="${post.texto}"></span></p>
+                		 <p class="card-text" style="margin-top: 20px;"><span th:utext="${post.texto}"></span></p>
                 		 <a  th:href="@{/posts/delete/{id}(id=${post.id})}"  class="btn btn-danger">Excluir</a>
                 <!--<a th:href="${(#mvc.url('BC#getPostDetails').arg(0, post.id)).build()}" class="card-link">Acessar</a>-->
            		 </div>
